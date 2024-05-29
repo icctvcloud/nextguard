@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  traefik:
+    image: traefik:v3.0
+    command:
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.email=${ACME_EMAIL}"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+      - "--providers.redis.endpoints=redis:6379"
+      - "--certificatesresolvers.myresolver.acme.httpChallenge.entryPoint=web"
+    ports:
+      - "80:80"
+      - "443:443"
+    labels:
+      - "traefik.http.routers.api.rule=PathPrefix(`/api`)"
+      - "traefik.http.routers.api.service=api@internal"
+      - "traefik.http.routers.dashboard.rule=PathPrefix(`/dashboard`)"
+      - "traefik.http.routers.dashboard.service=dashboard@internal"
+      - "traefik.http.routers.dashboard.entrypoints=websecure"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./letsencrypt:/letsencrypt"
+
+
+  backend:
+    image: registry.cn-hangzhou.aliyuncs.com/icctvcloud/nextguard:v1.1
+    command: /usr/bin/supervisord -n
+    ports:
+      - "5060:5060"
+      - "5060:5060/udp"
+      - "10100-10200:10100-10200"
+    environment:
+      - JWT_SECRET=${JWT_SECRET}
+      - API_SALT=${API_SALT}
+      - ZML_SECRET=${ZML_SECRET}
+    volumes:
+      - ./ova_logs:/opt/ova/ova_logs
+      - ./oss:/opt/ova/ova-event/oss
+    labels:
+      - "traefik.http.routers.backend.rule=PathPrefix(`/`)"
+      - "traefik.http.services.backend.loadbalancer.server.port=80"
+      - "traefik.http.routers.backend.entrypoints=web"
+    depends_on:
+      - mysql
+      - redis
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./mysql57data:/var/lib/mysql
+      - ./initsql:/docker-entrypoint-initdb.d
+      
+  redis:
+    image: redis:latest
+    volumes:
+      - ./redis_data:/data
+    command: redis-server --appendonly yes

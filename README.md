@@ -30,8 +30,9 @@ NextGuard，支持GB28181协议，海康、大华、宇视等品牌的IPC、NVR�
 ### 视频实时浏览
 ![视频实时浏览](./snapshot/realview.png)
 
-
 ## 安装部署
+
+[安装部署](./install.md)
 
 ## 使用帮助
 
