@@ -1,4 +1,4 @@
-# ubuntu22.04
+# ubuntu 18.04 20.04 22.04
 
 # install docker
 sudo apt-get update
