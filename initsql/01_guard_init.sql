@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `ipc` (
   `status` smallint(6) DEFAULT NULL,
   `online` smallint(6) DEFAULT NULL,
   `offline_time` datetime(3) DEFAULT NULL,
-  `registered_time` datetime(3) DEFAULT NULL,
+  `registered_time` datetime DEFAULT CURRENT_TIMESTAMP,
   `deleted` int(11) NOT NULL DEFAULT '0',
   `ova_mediagate_cluster_id` smallint(6) DEFAULT NULL,
   `image_snapshot` smallint(6) DEFAULT NULL,
@@ -184,7 +184,7 @@ CREATE TABLE IF NOT EXISTS `ipc_dvr` (
   `dvr_server_id` smallint(6) DEFAULT NULL,
   `stream` varchar(128) DEFAULT NULL,
   `deleted_at` datetime(3) DEFAULT NULL,
-  `created_at` datetime(3) DEFAULT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime(3) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `uuid` (`uuid`) USING BTREE,
@@ -210,7 +210,7 @@ CREATE TABLE IF NOT EXISTS `ipc_event` (
   `channelid` varchar(255) DEFAULT NULL,
   `content` varchar(255) DEFAULT NULL,
   `pic_url` varchar(255) DEFAULT NULL,
-  `created_at` datetime(3) DEFAULT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `category_id` int(11) DEFAULT '1',
   `stream` varchar(256) DEFAULT NULL,
   `dvr_id` bigint(20) DEFAULT NULL,
@@ -450,8 +450,7 @@ CREATE TABLE IF NOT EXISTS `service_category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 INSERT INTO `service_category`(`id`,`category`,`created_at`,`updated_at`,`deleted_at`)
-SELECT * FROM (SELECT 1,'入侵',NOW(), NULL AS updated_at, NULL AS deleted_at UNION
-               SELECT 2,'离岗',NOW(),NULL,NULL
+SELECT * FROM (SELECT 1,'入侵',NOW(), NULL AS updated_at, NULL AS deleted_at 
 			   ) AS tmp
 WHERE NOT EXISTS (SELECT * FROM `service_category`);
 
@@ -582,6 +581,16 @@ CREATE TABLE IF NOT EXISTS `network` (
    PRIMARY KEY (`id`),
    KEY `idx_network_deleted_at` (`deleted_at`)
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+ 
+CREATE TABLE IF NOT EXISTS `storage` (
+   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+   `storage_day` int(11) NOT NULL DEFAULT '0' COMMENT '保存天数',
+   PRIMARY KEY (`id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+ 
+INSERT INTO `storage` (`id`,`storage_day`)
+SELECT 1,0 FROM DUAL 
+WHERE NOT EXISTS (SELECT * FROM `storage`);
 
 /* Procedure structure for procedure `insert_ipc_and_gb28181` */
 

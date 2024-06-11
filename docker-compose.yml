@@ -15,24 +15,19 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    labels:
-      - "traefik.http.routers.api.rule=PathPrefix(`/api`)"
-      - "traefik.http.routers.api.service=api@internal"
-      - "traefik.http.routers.dashboard.rule=PathPrefix(`/dashboard`)"
-      - "traefik.http.routers.dashboard.service=dashboard@internal"
-      - "traefik.http.routers.dashboard.entrypoints=websecure"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "./letsencrypt:/letsencrypt"
 
 
   backend:
-    image: registry.cn-hangzhou.aliyuncs.com/icctvcloud/nextguard:v1.1
+    image: registry.cn-hangzhou.aliyuncs.com/icctvcloud/nextguard:v1.2
     command: /usr/bin/supervisord -n
     ports:
       - "5060:5060"
       - "5060:5060/udp"
       - "10100-10200:10100-10200"
+    pull_policy: always
     environment:
       - JWT_SECRET=${JWT_SECRET}
       - API_SALT=${API_SALT}
