@@ -5,7 +5,11 @@
 ### ubunutu 
 	
 	x86 64位 版本号：18、20、22
+	
+### centos
 
+	x86 64位 版本号：7.9、8.5
+	
 ## 需要打开的防火墙端口
 
 80 tcp
@@ -18,7 +22,7 @@
 
 ## 获取软件
 
-ubunutu 操作系统，在硬盘空余较多的目录下，以root	在终端窗口运行
+ubunutu/centos 操作系统，在硬盘空余较多的目录下，以root	在终端窗口运行
  	
  	git clone https://github.com/icctvcloud/nextguard.git
 
@@ -27,6 +31,13 @@ NextGuard系统以docker模式运行，因此需要安装docker支撑环境。�
 
 	ubunutu 操作系统，以root在终端窗口运行
 	docker_ubuntu_install.sh
+	
+	如果此脚本运行比较慢，可以编辑此脚本（具体方法请根据其中的说明）。
+	
+	centos 操作系统，以root在终端窗口运行
+	docker_centos_install.sh
+	
+	如果此脚本运行比较慢，可以编辑此脚本（具体方法请根据其中的说明）。
 
 ## 初始化
 
@@ -37,10 +48,10 @@ NextGuard系统以docker模式运行，因此需要安装docker支撑环境。�
 修改.env各种密钥。
 
 ## 启动系统
-	ubunutu 操作系统，以root在终端窗口运行
+	ubunutu/centos 操作系统，以root在终端窗口运行
 	nextguard_start.sh
 	
 ## 关闭系统
-	ubunutu 操作系统，以root在终端窗口运行
+	ubunutu/centos 操作系统，以root在终端窗口运行
 	nextguard_stop.sh
 
