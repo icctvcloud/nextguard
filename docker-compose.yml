@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   traefik:
-    image: traefik:v3.0
+    image: traefik:latest
     command:
       - "--providers.docker=true"
       - "--entrypoints.web.address=:80"
@@ -21,7 +21,8 @@ services:
 
 
   backend:
-    image: registry.cn-hangzhou.aliyuncs.com/icctvcloud/nextguard:v1.2
+    image: registry.cn-hangzhou.aliyuncs.com/icctvcloud/nextguard:v1.3
+    #image: nextguard
     command: /usr/bin/supervisord -n
     ports:
       - "5060:5060"
@@ -44,13 +45,18 @@ services:
       - redis
 
   mysql:
-    image: mysql:5.7
+    image: postgres:latest
+    container_name: pgsql
     environment:
-      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-      - TZ=Asia/Shanghai
+      POSTGRES_USER: guard
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: initdb
+      TZ: "Asia/Shanghai"
+    #ports:
+    #  - "5432:5432"
     volumes:
-      - ./mysql57data:/var/lib/mysql
-      - ./initsql:/docker-entrypoint-initdb.d
+      - ./initpgsql:/docker-entrypoint-initdb.d
+      - ./pgdata:/var/lib/postgresql/data
       
   redis:
     image: redis:latest

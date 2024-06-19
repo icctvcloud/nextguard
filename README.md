@@ -4,11 +4,11 @@ NextGuard，是一款开箱即用的具备AI能力的视频监控软件。
 
 ## 监控视频接入
 
-NextGuard，支持GB28181协议，海康、大华、宇视等品牌的IPC、NVR可以接入。
+NextGuard，支持GB28181协议/onvif协议，海康、大华、宇视等品牌的IPC、NVR可以接入。
 
 支持NAT穿越，NextGuard可以安装部署在公有云上，监控设备可以在内网通过宽带连接到云服务器。
 
-支持国标级联，可以将现有的国标监控系统对接到NextGuard。
+支持国标GB28181协议级联，可以将现有的国标监控系统对接到NextGuard。
 
 ## AI功能
 
@@ -60,7 +60,7 @@ NextGuard，支持GB28181协议，海康、大华、宇视等品牌的IPC、NVR�
 
 [ffmpeg](https://ffmpeg.org/)
  
-[mysql](https://www.mysql.com/products/community/)
+[postgresql](https://www.postgresql.org)
 
 [redis](https://redis.io/)
 
