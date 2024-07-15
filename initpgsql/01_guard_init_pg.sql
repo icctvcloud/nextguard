@@ -545,6 +545,14 @@ CREATE TABLE  "storage" (
  
 INSERT INTO "storage" ("id","storage_day") VALUES(1,0);
 
+CREATE TABLE "installation_info" (
+  "id" SERIAL PRIMARY KEY,
+  "sn" VARCHAR(32) NOT NULL DEFAULT '',
+  "created_at" TIMESTAMPTZ(3) DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO "installation_info" ("sn","created_at") VALUES(SUBSTRING(MD5(CAST(RANDOM() AS TEXT)), 1, 16) , CURRENT_TIMESTAMP);
+
 
 CREATE OR REPLACE PROCEDURE insert_ipc_and_gb28181(
     IN p_user_id int,

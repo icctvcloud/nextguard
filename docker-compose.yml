@@ -21,7 +21,7 @@ services:
 
 
   backend:
-    image: registry.cn-hangzhou.aliyuncs.com/icctvcloud/nextguard:v1.3
+    image: registry.cn-hangzhou.aliyuncs.com/icctvcloud/nextguard:v1.5
     #image: nextguard
     command: /usr/bin/supervisord -n
     ports:
