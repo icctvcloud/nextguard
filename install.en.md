@@ -9,6 +9,10 @@
 ### centos
 
 	x86 64bit version：7.9、8.5
+
+### window
+
+	x86 64bit version：10、11
 	
 ## Firewall ports that need to be opened
 
@@ -22,21 +26,23 @@
 
 ## Get the software
 
-ubunutu/centos,In a directory with plenty of free space on the hard disk, run as root in a terminal window:
+ubunutu/centos/window,In a directory with plenty of free space on the hard disk, run as root in a terminal window:
  	
  	git clone https://github.com/icctvcloud/nextguard.git
 
 ## docker
 The NextGuard system runs in docker mode, so you need to install the docker support environment. Enter the nextguard directory
 
-	ubunutu ，run as root in a terminal window
+ubunutu ，run as root in a terminal window
+
 	docker_ubuntu_install.sh
 	
 	
-	centos ，run as root in a terminal window
+centos ，run as root in a terminal window
+
 	docker_centos_install.sh
 	
-	
+window，need install docker desktop	
 
 ## initialize
 
@@ -47,10 +53,16 @@ Modify ACME_EMAIL in .env (used to apply for SSL certificate) to your own email 
 Modify various keys in .env.
 
 ## Start
-	ubunutu/centos，run as root in a terminal window
+ubunutu/centos，run as root in a terminal window
+
 	nextguard_start.sh
-	
+
+window，double click nextguard_start.bat
+ 	
 ## Shutdown
-	ubunutu/centos，run as root in a terminal window
+ubunutu/centos，run as root in a terminal window
+
 	nextguard_stop.sh
+
+window，double click nextguard_stop.bat
 
