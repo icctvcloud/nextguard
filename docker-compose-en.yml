@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  traefik:
+    image: traefik:latest
+    command:
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.email=${ACME_EMAIL}"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+      - "--providers.redis.endpoints=redis:6379"
+      - "--certificatesresolvers.myresolver.acme.httpChallenge.entryPoint=web"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./letsencrypt:/letsencrypt"
+
+
+  backend:
+    image: ghcr.io/icctvcloud/nextguard_container_registry/nextguard:v1.6
+    #image: nextguard
+    command: /usr/bin/supervisord -n
+    ports:
+      - "5060:5060"
+      - "5060:5060/udp"
+      - "10100-10200:10100-10200"
+    pull_policy: always
+    environment:
+      - JWT_SECRET=${JWT_SECRET}
+      - API_SALT=${API_SALT}
+      - ZML_SECRET=${ZML_SECRET}
+    volumes:
+      - ./ova_logs:/opt/ova/ova_logs
+      - ./oss:/opt/ova/ova-event/oss
+    labels:
+      - "traefik.http.routers.backend.rule=PathPrefix(`/`)"
+      - "traefik.http.services.backend.loadbalancer.server.port=80"
+      - "traefik.http.routers.backend.entrypoints=web"
+    depends_on:
+      - mysql
+      - redis
+
+  mysql:
+    image: postgres:latest
+    container_name: pgsql
+    environment:
+      POSTGRES_USER: guard
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: initdb
+      TZ: "Asia/Shanghai"
+    #ports:
+    #  - "5432:5432"
+    volumes:
+      - ./initpgsql:/docker-entrypoint-initdb.d
+      - ./pgdata:/var/lib/postgresql/data
+      
+  redis:
+    image: redis:latest
+    volumes:
+      - ./redis_data:/data
+    command: redis-server --appendonly yes

@@ -1,6 +1,6 @@
-# NextGuard，Video surveillance software with AI capabilities
+# NextGuard，transform your cameras into an AI-powered cloud video surveillance system
 
-NextGuard is a video surveillance software based on ONVIF protocol, which can be installed locally and has AI function. NextGuard enables you to keep a close eye on the people or things you want to monitor.
+NextGuard is a web-based video surveillance software designed for ip-cameras, which can be installed locally and will transform your cameras into an AI-powered cloud video surveillance system.NextGuard enables you to keep a close eye on the people or things you want to monitor.
 
 ## IP cameras connected to NextGuard
 

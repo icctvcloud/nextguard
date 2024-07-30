@@ -55,9 +55,9 @@ Modify various keys in .env.
 ## Start
 ubunutu/centos，run as root in a terminal window
 
-	nextguard_start.sh
+	nextguard_start.en.sh
 
-window，double click nextguard_start.bat
+window，double click nextguard_start.en.bat
  	
 ## Shutdown
 ubunutu/centos，run as root in a terminal window

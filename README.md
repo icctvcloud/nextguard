@@ -14,6 +14,6 @@ NextGuard是基于GB28181-2016标准/onvif协议、可以本地安装、具有AI
 
 [详情](./README.cn.md)
 
-[安装部署](./install.md)
+[安装部署](./install.cn.md)
 
-[使用帮助](./manual.md)
+[使用帮助](./manual.cn.md)

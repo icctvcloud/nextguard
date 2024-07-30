@@ -1,6 +1,6 @@
-# NextGuard，开箱即用的具备AI能力的视频监控软件
+# NextGuard，将您的普通网络摄像机转化为具有强大AI能力的监控系统
 
-NextGuard，是一款开箱即用的具备AI能力的视频监控软件。
+NextGuard是基于GB28181-2016标准/onvif协议、可以本地安装、具有AI功能的视频监控软件。NextGuard可以将您普通的网络摄像机转变为强大的AI云视频监控系统。NextGuard使您能够密切关注您想要监控的人或物。
 
 ## 监控视频接入
 
@@ -32,11 +32,11 @@ NextGuard，支持GB28181协议/onvif协议，海康、大华、宇视等品牌�
 
 ## 安装部署
 
-[安装部署](./install.md)
+[安装部署](./install.cn.md)
 
 ## 使用帮助
 
-[使用帮助](./manual.md)
+[使用帮助](./manual.cn.md)
 
 ## 怎么提问？
 

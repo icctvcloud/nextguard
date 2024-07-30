@@ -1,8 +1,6 @@
-version: '3.8'
-
 services:
   traefik:
-    image: traefik:latest
+    image: registry.cn-hangzhou.aliyuncs.com/icctvcloud/traefik:latest
     command:
       - "--providers.docker=true"
       - "--entrypoints.web.address=:80"
@@ -21,8 +19,7 @@ services:
 
 
   backend:
-    image: registry.cn-hangzhou.aliyuncs.com/icctvcloud/nextguard:v1.5
-    #image: nextguard
+    image: registry.cn-hangzhou.aliyuncs.com/icctvcloud/nextguard:v1.6
     command: /usr/bin/supervisord -n
     ports:
       - "5060:5060"
@@ -45,21 +42,19 @@ services:
       - redis
 
   mysql:
-    image: postgres:latest
+    image: registry.cn-hangzhou.aliyuncs.com/icctvcloud/postgres:latest
     container_name: pgsql
     environment:
       POSTGRES_USER: guard
       POSTGRES_PASSWORD: 123456
       POSTGRES_DB: initdb
       TZ: "Asia/Shanghai"
-    #ports:
-    #  - "5432:5432"
     volumes:
       - ./initpgsql:/docker-entrypoint-initdb.d
       - ./pgdata:/var/lib/postgresql/data
       
   redis:
-    image: redis:latest
+    image: registry.cn-hangzhou.aliyuncs.com/icctvcloud/redis:latest
     volumes:
       - ./redis_data:/data
     command: redis-server --appendonly yes

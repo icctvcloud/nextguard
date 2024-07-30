@@ -58,11 +58,11 @@ window操作系统，需要安装docker desktop
 ## 启动系统
 ubunutu/centos 操作系统，以root在终端窗口运行
 
-	nextguard_start.sh
+	nextguard_start.cn.sh
 
 window操作系统
 	
-	在nextguard目录，双击nextguard_start.bat	
+	在nextguard目录，双击nextguard_start.cn.bat	
 
 ## 关闭系统
 ubunutu/centos 操作系统，以root在终端窗口运行
